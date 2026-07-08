@@ -50,6 +50,20 @@ class WP_Portal_Bridge_Auth {
 	/** @var string Nonce of the current verified request (for response signing). */
 	private $verified_nonce = '';
 
+	/**
+	 * Per-process verdict memo. WordPress core re-invokes REST permission
+	 * callbacks within a single request (e.g. rest_send_allow_header builds
+	 * the Allow header by calling them again). Without memoization, a
+	 * successful request would see its own nonce on the second invocation and
+	 * self-report as a replay — poisoning the fail counter until legitimate
+	 * clients get rate limited. One HTTP request = one PHP process = one
+	 * verdict; true replays arrive in a fresh process and still die on the
+	 * nonce transient.
+	 *
+	 * @var array<string, true|WP_Error>
+	 */
+	private $verdicts = array();
+
 	// ─────────────────────────────────────────────────────────────────────────
 	// Pure signing primitives — no WordPress dependencies. These four methods
 	// are the entire algorithm and are asserted against the shared golden
@@ -274,6 +288,42 @@ class WP_Portal_Bridge_Auth {
 		$settings = $this->settings();
 
 		$ip = $this->client_ip();
+
+		// Same request, second invocation (WP core plumbing) → same verdict,
+		// no re-verification, no double-counting.
+		$memo_key = $this->memo_key( $request );
+		if ( array_key_exists( $memo_key, $this->verdicts ) ) {
+			return $this->verdicts[ $memo_key ];
+		}
+		$verdict = $this->verify( $request, $settings, $ip );
+		$this->verdicts[ $memo_key ] = $verdict;
+		return $verdict;
+	}
+
+	/**
+	 * Stable identity for one concrete signed request within this process.
+	 *
+	 * @param WP_REST_Request $request Incoming request.
+	 * @return string
+	 */
+	private function memo_key( $request ) {
+		return md5(
+			$request->get_method() . '|' .
+			( isset( $_SERVER['REQUEST_URI'] ) ? (string) $_SERVER['REQUEST_URI'] : '' ) . '|' .
+			(string) $request->get_header( 'X-Portal-Nonce' ) . '|' .
+			(string) $request->get_header( 'X-Portal-Signature' )
+		);
+	}
+
+	/**
+	 * The actual verification pipeline (memoized by permit()).
+	 *
+	 * @param WP_REST_Request $request  Incoming request.
+	 * @param array           $settings Effective settings.
+	 * @param string          $ip       Client IP.
+	 * @return true|WP_Error
+	 */
+	private function verify( $request, $settings, $ip ) {
 
 		// 0. Rate limit gate — tripped IPs get a generic 429 before any work.
 		if ( $this->is_rate_limited( $ip, $settings ) ) {
