@@ -1,0 +1,129 @@
+{
+  "version": "PORTAL-BRIDGE-V1",
+  "generatedBy": "wp-portal-bridge/tools/generate-vectors.mjs",
+  "tmk": "portal_tmk_test_5f2a9c1d3e8b4a7f6c0d9e2b1a8f7c6d5e4b3a2f1c0d9e8b",
+  "keyId": "wpb_testkey1",
+  "emptyBodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "requests": [
+    {
+      "name": "get_no_query",
+      "note": "Plain GET, no query string, empty body hashes to sha256('')",
+      "method": "GET",
+      "pathWithQuery": "/wp-json/wp-portal-bridge/v1/health",
+      "timestamp": 1751980000,
+      "nonce": "nonce-0001-health",
+      "body": null,
+      "bodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "canonical": "PORTAL-BRIDGE-V1\nGET\n/wp-json/wp-portal-bridge/v1/health\n1751980000\nnonce-0001-health\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "signature": "9168eed6e1aede9e5dbd08bae5ee605670bf711360e17476ba2a464648636912"
+    },
+    {
+      "name": "get_encoded_path_param",
+      "note": "Percent-encoded query value is signed exactly as sent — never decoded",
+      "method": "GET",
+      "pathWithQuery": "/wp-json/wp-portal-bridge/v1/route?path=%2Fabout%2F",
+      "timestamp": 1751980000,
+      "nonce": "nonce-0002-encoded",
+      "body": null,
+      "bodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "canonical": "PORTAL-BRIDGE-V1\nGET\n/wp-json/wp-portal-bridge/v1/route?path=%2Fabout%2F\n1751980000\nnonce-0002-encoded\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "signature": "8c956d381acddc50cf7a895b6a3ae202f0d1deaf85f60a77d866e5f7668ac519"
+    },
+    {
+      "name": "get_unencoded_path_param",
+      "note": "Same logical value, raw slashes in query — DIFFERENT signature than the encoded form, by design",
+      "method": "GET",
+      "pathWithQuery": "/wp-json/wp-portal-bridge/v1/route?path=/about/",
+      "timestamp": 1751980000,
+      "nonce": "nonce-0003-raw",
+      "body": null,
+      "bodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "canonical": "PORTAL-BRIDGE-V1\nGET\n/wp-json/wp-portal-bridge/v1/route?path=/about/\n1751980000\nnonce-0003-raw\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "signature": "42598b4ae5cc838e7f750d062f3e5b19efad1c7eaab11b26ecd82e651c194855"
+    },
+    {
+      "name": "get_query_order_ab",
+      "note": "Query parameter order is significant: a=1&b=2",
+      "method": "GET",
+      "pathWithQuery": "/wp-json/wp-portal-bridge/v1/routes?page=1&perPage=100",
+      "timestamp": 1751980000,
+      "nonce": "nonce-0004-order-ab",
+      "body": null,
+      "bodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "canonical": "PORTAL-BRIDGE-V1\nGET\n/wp-json/wp-portal-bridge/v1/routes?page=1&perPage=100\n1751980000\nnonce-0004-order-ab\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "signature": "e6627992808464a3306c001ced2fd45e684e17df048a44a548e29a4c1885fb23"
+    },
+    {
+      "name": "get_query_order_ba",
+      "note": "Reversed order perPage=100&page=1 is a different canonical string and signature",
+      "method": "GET",
+      "pathWithQuery": "/wp-json/wp-portal-bridge/v1/routes?perPage=100&page=1",
+      "timestamp": 1751980000,
+      "nonce": "nonce-0005-order-ba",
+      "body": null,
+      "bodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "canonical": "PORTAL-BRIDGE-V1\nGET\n/wp-json/wp-portal-bridge/v1/routes?perPage=100&page=1\n1751980000\nnonce-0005-order-ba\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "signature": "ebdaae02a6c44748ee64c2cad754d830c51744c77f865cfc610a8c26f1644345"
+    },
+    {
+      "name": "get_trailing_slash",
+      "note": "Trailing slash on the endpoint path changes the signature",
+      "method": "GET",
+      "pathWithQuery": "/wp-json/wp-portal-bridge/v1/menus/",
+      "timestamp": 1751980000,
+      "nonce": "nonce-0006-trailing",
+      "body": null,
+      "bodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "canonical": "PORTAL-BRIDGE-V1\nGET\n/wp-json/wp-portal-bridge/v1/menus/\n1751980000\nnonce-0006-trailing\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "signature": "fcdd419365d5ea31a44759a53fd33153bdb3cca473d8733948599239422be414"
+    },
+    {
+      "name": "get_subdirectory_install",
+      "note": "Subdirectory WordPress installs sign the full path from the origin",
+      "method": "GET",
+      "pathWithQuery": "/blog/wp-json/wp-portal-bridge/v1/site",
+      "timestamp": 1751980000,
+      "nonce": "nonce-0007-subdir",
+      "body": null,
+      "bodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "canonical": "PORTAL-BRIDGE-V1\nGET\n/blog/wp-json/wp-portal-bridge/v1/site\n1751980000\nnonce-0007-subdir\ne3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "signature": "e459c712401977bff2d281568154843c7f26f1d133525362ee386d6c6797bdb0"
+    },
+    {
+      "name": "post_json_body",
+      "note": "POST with a JSON body: BODY_SHA256 is the sha256 of the exact raw bytes",
+      "method": "POST",
+      "pathWithQuery": "/wp-json/wp-portal-bridge/v1/snapshot",
+      "timestamp": 1751980000,
+      "nonce": "nonce-0008-post",
+      "body": "{\"mode\":\"full\"}",
+      "bodySha256": "1d5d296f9033e53b70a20357e71a05c9ac061c1a2467d18dfebbc4d98bee40b6",
+      "canonical": "PORTAL-BRIDGE-V1\nPOST\n/wp-json/wp-portal-bridge/v1/snapshot\n1751980000\nnonce-0008-post\n1d5d296f9033e53b70a20357e71a05c9ac061c1a2467d18dfebbc4d98bee40b6",
+      "signature": "eae52cb11b4d17448fdc433590eb045da31ba2780505024f221f396215bdf12c"
+    }
+  ],
+  "responses": [
+    {
+      "name": "response_health_ok",
+      "note": "Response signing binds the reply to the request nonce",
+      "requestNonce": "nonce-0001-health",
+      "statusCode": 200,
+      "responseTimestamp": 1751980001,
+      "responseBody": "{\"ok\":true}",
+      "responseBodySha256": "4062edaf750fb8074e7e83e0c9028c94e32468a8b6f1614774328ef045150f93",
+      "canonical": "PORTAL-BRIDGE-RESPONSE-V1\nnonce-0001-health\n200\n1751980001\n4062edaf750fb8074e7e83e0c9028c94e32468a8b6f1614774328ef045150f93",
+      "signature": "b1ec406129349142e7bb095ff9f90c99fc480b9e6943e0e925739a61f3a460b2"
+    },
+    {
+      "name": "response_unauthorized",
+      "note": "",
+      "requestNonce": "nonce-0009-bad",
+      "statusCode": 401,
+      "responseTimestamp": 1751980002,
+      "responseBody": "{\"code\":\"wpb_unauthorized\"}",
+      "responseBodySha256": "9d0db720a48b06c135a852aa50a15e89b99b45bae18d02e4d3e9f4fd3c87f3d8",
+      "canonical": "PORTAL-BRIDGE-RESPONSE-V1\nnonce-0009-bad\n401\n1751980002\n9d0db720a48b06c135a852aa50a15e89b99b45bae18d02e4d3e9f4fd3c87f3d8",
+      "signature": "520c7f8ccdfa22760690048265edd7dd2d05a84b4893613801d229c35e588338"
+    }
+  ]
+}
