@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name:       WP Portal Bridge
- * Plugin URI:        https://github.com/Eth-Interchained/wp-portal-bridge
+ * Plugin URI:        https://github.com/interchained/wp-portal-bridge
  * Description:       Keep WordPress as your backend. Upgrade the website your customers actually see. WP Portal Bridge exposes your WordPress content as a signed Portal content contract so the Portal framework can render your public site.
- * Version:           0.1.0
+ * Version:           0.1.1
  * Requires at least: 6.0
  * Requires PHP:      7.4
  * Author:            Interchained
@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPB_VERSION', '0.1.0' );
+define( 'WPB_VERSION', '0.1.1' );
 define( 'WPB_SCHEMA_VERSION', 'portal.wp.source.v1' );
 define( 'WPB_SIGNING_VERSION', 'PORTAL-BRIDGE-V1' );
 define( 'WPB_RESPONSE_SIGNING_VERSION', 'PORTAL-BRIDGE-RESPONSE-V1' );
