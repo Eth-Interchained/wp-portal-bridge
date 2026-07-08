@@ -3,6 +3,7 @@
   "generatedBy": "wp-portal-bridge/tools/generate-vectors.mjs",
   "tmk": "portal_tmk_test_5f2a9c1d3e8b4a7f6c0d9e2b1a8f7c6d5e4b3a2f1c0d9e8b",
   "keyId": "wpb_testkey1",
+  "derivedKeyId": "wpb_058c88ccfa99",
   "emptyBodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   "requests": [
     {

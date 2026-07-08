@@ -98,6 +98,16 @@ foreach ( $vectors['responses'] as $vector ) {
 	assert_equal( $name, 'signature', $vector['signature'], $signature, $passed, $failed );
 }
 
+// Key id derivation (fingerprint) matches the canonical generator.
+assert_equal(
+	'derive_key_id',
+	'derivedKeyId',
+	$vectors['derivedKeyId'],
+	WP_Portal_Bridge_Auth::derive_key_id( $tmk ),
+	$passed,
+	$failed
+);
+
 // Cross-check: mask never leaks more than prefix + last 4.
 $mask = WP_Portal_Bridge_Auth::mask_secret( $tmk );
 if ( false !== strpos( $mask, substr( $tmk, 20, 12 ) ) ) {

@@ -249,16 +249,30 @@ class WP_Portal_Bridge_Auth {
 	}
 
 	/**
-	 * Mint a fresh key record.
+	 * Mint a fresh key record. The key id is DERIVED from the secret
+	 * (fingerprint: wpb_ + first 12 hex of sha256(secret)) so Portal needs
+	 * only PORTAL_TMK in its env — it derives the same id independently.
 	 *
 	 * @return array{id: string, secret: string, created: int}
 	 */
 	private function mint_key() {
+		$secret = 'portal_tmk_live_' . bin2hex( random_bytes( 24 ) );
 		return array(
-			'id'      => 'wpb_' . bin2hex( random_bytes( 6 ) ),
-			'secret'  => 'portal_tmk_live_' . bin2hex( random_bytes( 24 ) ),
+			'id'      => self::derive_key_id( $secret ),
+			'secret'  => $secret,
 			'created' => time(),
 		);
+	}
+
+	/**
+	 * Deterministic key id (fingerprint) for a TMK secret. Pure primitive —
+	 * mirrored by the Portal adapter and asserted by the golden vectors.
+	 *
+	 * @param string $secret TMK secret.
+	 * @return string
+	 */
+	public static function derive_key_id( $secret ) {
+		return 'wpb_' . substr( hash( 'sha256', (string) $secret ), 0, 12 );
 	}
 
 	/**
