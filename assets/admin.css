@@ -1,0 +1,61 @@
+/* WP Portal Bridge — admin screen. WordPress-native, quiet, legible. */
+
+.wpb-wrap h1 { letter-spacing: 0.01em; }
+.wpb-tagline { color: #50575e; font-size: 14px; margin-top: -6px; }
+
+.wpb-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+	gap: 16px;
+	margin-top: 16px;
+}
+
+.wpb-card {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	padding: 16px 20px 18px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+}
+.wpb-card h2 { margin: 0 0 10px; font-size: 15px; }
+.wpb-card-wide { grid-column: 1 / -1; }
+
+.wpb-status { font-weight: 600; }
+.wpb-ok   { color: #00701a; }
+.wpb-warn { color: #996800; }
+.wpb-off  { color: #8c8f94; }
+.wpb-err  { color: #b32d2e; }
+.wpb-wait { color: #007cba; }
+.wpb-dim  { color: #787c82; font-size: 12px; }
+
+.wpb-kv { width: 100%; border-collapse: collapse; }
+.wpb-kv td { padding: 4px 8px 4px 0; vertical-align: top; font-size: 13px; }
+.wpb-kv td:first-child { color: #50575e; width: 42%; }
+
+.wpb-env {
+	background: #1d2327;
+	color: #9ee493;
+	padding: 12px 14px;
+	border-radius: 4px;
+	font-size: 13px;
+	overflow-x: auto;
+	user-select: all;
+}
+
+.wpb-reveal {
+	border-left: 4px solid #996800;
+	background: #fcf9e8;
+	padding: 8px 12px;
+	margin-bottom: 8px;
+}
+
+.wpb-selftest { margin-top: 10px; padding: 8px 12px; border-radius: 4px; background: #f6f7f7; }
+
+.wpb-inline-form { display: inline-block; margin: 4px 6px 0 0; }
+
+.wpb-endpoints { columns: 2; margin: 6px 0; }
+.wpb-endpoints li { margin: 2px 0; }
+
+.wpb-routes code { font-size: 12px; }
+.wpb-hash { font-size: 11px; }
+.wpb-faillog td { font-size: 12px; }
