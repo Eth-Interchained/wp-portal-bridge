@@ -76,6 +76,15 @@ export function sign(tmkSecret, canonical) {
   return createHmac("sha256", tmkSecret).update(canonical, "utf8").digest("hex");
 }
 
+/**
+ * Deterministic key id (fingerprint) for a TMK secret: wpb_ + first 12 hex
+ * of sha256(secret). Lets Portal derive the X-Portal-Key-Id from PORTAL_TMK
+ * alone — the env block stays exactly two variables.
+ */
+export function deriveKeyId(tmkSecret) {
+  return "wpb_" + createHash("sha256").update(tmkSecret, "utf8").digest("hex").slice(0, 12);
+}
+
 // ── Fixed test inputs (never change these — they are the contract) ───────────
 
 const TMK = "portal_tmk_test_5f2a9c1d3e8b4a7f6c0d9e2b1a8f7c6d5e4b3a2f1c0d9e8b";
@@ -180,6 +189,7 @@ const vectors = {
   generatedBy: "wp-portal-bridge/tools/generate-vectors.mjs",
   tmk: TMK,
   keyId: KEY_ID,
+  derivedKeyId: deriveKeyId(TMK),
   emptyBodySha256: EMPTY_BODY_SHA256,
   requests: cases.map((c) => {
     const bodySha = c.body === null ? EMPTY_BODY_SHA256 : sha256Hex(c.body);
